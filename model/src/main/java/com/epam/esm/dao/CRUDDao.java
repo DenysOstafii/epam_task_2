@@ -4,12 +4,6 @@ import java.util.List;
 
 public interface CRUDDao<T> {
 
-     T getById();
-
-     List<T> getAllItems();
-
-     void insert (T item);
-
-     int deleteById(int id);
+     void update(T item);
 
 }

@@ -10,16 +10,20 @@ public class Certificate {
 
     private int id;
     private String name;
+    private String description;
     private int price;
     private int duration;
     private String createDate;
     private String lastUpdateDate;
     private List<Tag> tags;
 
-    public Certificate(int id, String name, int price, int duration,
+    public Certificate(){}
+
+    public Certificate(int id, String name, String description, int price, int duration,
                        String createDate, String lastUpdateDate, List<Tag> tags) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.price = price;
         this.duration = duration;
         this.createDate = createDate;
@@ -81,6 +85,14 @@ public class Certificate {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

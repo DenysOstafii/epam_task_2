@@ -1,4 +1,7 @@
 package com.epam.esm.dao;
 
-public interface CertificateDao extends CRDDao,CRUDDao{
+import com.epam.esm.entity.Certificate;
+
+public interface CertificateDao extends CRUDDao<Certificate>, CRDDao<Certificate>{
+
 }

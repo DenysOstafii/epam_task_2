@@ -1,34 +1,60 @@
 package com.epam.esm.controller;
 
-import com.epam.esm.dao.CertificateDAO;
+
 import com.epam.esm.entity.Certificate;
+import com.epam.esm.service.CertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/certificate")
 public class CertificateController {
 
     @Autowired
-    private CertificateDAO certificateDAO;
+    private CertificateService certificateService;
 
-    public CertificateController(CertificateDAO certificateDAO) {
-        this.certificateDAO = certificateDAO;
+    public CertificateController(CertificateService certificateService) {
+        this.certificateService = certificateService;
     }
 
     @GetMapping()
-    public String index(Certificate certificate)
+    public List<Certificate> allCertificates(Certificate certificate)
     {
         // All Certificates from DAO
-        return null;
+        return certificateService.getAll();
     }
     @GetMapping("/{id}") //to our /certificate we will add "id"
-    public String show(@PathVariable("id") int id, Certificate certificate){
+    public Certificate certificateDyId(@PathVariable("id") int id, Certificate certificate){
 
         // We will get one Certificate by id from DAO
-        return null;
+        return certificateService.geById(id);
     }
+
+    @PostMapping
+    public ResponseEntity<String> createCertificate(Certificate certificate){
+        certificateService.insert(certificate);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Success !");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteCertificateById(@PathVariable int id){
+
+        certificateService.removeById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+   @PatchMapping
+    public  ResponseEntity<String> updateCertificate(@PathVariable int id, @RequestMapping Certificate certificate){
+        certificateService.update(id, certificate);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Success !");
+   }
+
+
+
 }
